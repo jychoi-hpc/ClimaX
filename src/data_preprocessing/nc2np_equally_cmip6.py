@@ -10,6 +10,7 @@ from climax.utils.data_utils import DEFAULT_PRESSURE_LEVELS, NAME_TO_VAR
 
 def extract_one_year(path, year, variables, len_to_extract, np_vars, normalize_mean, normalize_std):
     for var in variables:
+        print ("extract_one_year:", path, var, year)
         ps = glob.glob(os.path.join(path, var, f"*{year}*.nc"))
         ds = xr.open_mfdataset(ps, combine="by_coords", parallel=True)  # dataset for a single variable
         code = NAME_TO_VAR[var]
@@ -226,6 +227,26 @@ def main(
             "temperature",
             "u_component_of_wind",
             "v_component_of_wind",
+        ]
+    elif dataset == 'mpi-esm':
+        hours_per_year = 365*4
+        year_strings = [f"{y}" for y in range(2000, 2010, 1)]
+        variables = [
+            # "2m_temperature",
+            # "10m_u_component_of_wind",
+            # "10m_v_component_of_wind",
+            # "geopotential",
+            # "specific_humidity",
+            # "temperature",
+            # "u_component_of_wind",
+            # "v_component_of_wind",
+            "air_temperature",
+            "northward_wind",
+            "sea_surface_temperature",
+            "surface_air_temperature",
+            "eastward_wind",
+            "precipitation_flux",
+            "specific_humidity",
         ]
     else:
         raise NotImplementedError(f'{dataset} is not supported')

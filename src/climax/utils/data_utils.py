@@ -19,7 +19,14 @@ NAME_TO_VAR = {
     "v_component_of_wind": "v",
     "temperature": "t",
     "relative_humidity": "r",
-    "specific_humidity": "q",
+    # "specific_humidity": "q",
+    "air_temperature": "ta",
+    "northward_wind": "va",
+    "sea_surface_temperature": "tos", 
+    "surface_air_temperature": "tas",
+    "eastward_wind": "ua",
+    "precipitation_flux": "pr",
+    "specific_humidity": "hus",
 }
 
 VAR_TO_NAME = {v: k for k, v in NAME_TO_VAR.items()}
@@ -35,6 +42,9 @@ SINGLE_LEVEL_VARS = [
     "land_sea_mask",
     "orography",
     "lattitude",
+    "precipitation_flux",
+    "surface_air_temperature",
+    "sea_surface_temperature",
 ]
 PRESSURE_LEVEL_VARS = [
     "geopotential",
@@ -43,6 +53,9 @@ PRESSURE_LEVEL_VARS = [
     "temperature",
     "relative_humidity",
     "specific_humidity",
+    "air_temperature",
+    "eastward_wind",
+    "northward_wind",
 ]
 DEFAULT_PRESSURE_LEVELS = [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 850, 925, 1000]
 

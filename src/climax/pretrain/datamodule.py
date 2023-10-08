@@ -107,6 +107,7 @@ class MultiSourceDataModule(LightningDataModule):
         for k in dict_variables.keys():
             root_dir = self.hparams.dict_root_dirs[k]
             variables = dict_variables[k]
+            print ("root_dir:", root_dir)
             normalize_mean = dict(np.load(os.path.join(root_dir, "normalize_mean.npz")))
             mean = []
             for var in variables:
@@ -169,9 +170,9 @@ class MultiSourceDataModule(LightningDataModule):
         if not torch.distributed.is_initialized():
             raise NotImplementedError("Only support distributed training")
         else:
-            node_rank = int(os.environ["NODE_RANK"])
+            node_rank = int(os.environ["SLURM_NODEID"])
             # assert that number of datasets is the same as number of nodes
-            num_nodes = os.environ.get("NODES", None)
+            num_nodes = os.environ.get("SLURM_JOB_NUM_NODES", None)
             if num_nodes is not None:
                 num_nodes = int(num_nodes)
                 assert num_nodes == len(self.dict_data_train.keys())
